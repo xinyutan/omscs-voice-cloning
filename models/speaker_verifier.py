@@ -48,6 +48,9 @@ class SpeakerVerifier(nn.Module):
         output = self.linear(output)
         return output
 
+    def _batch_dot_mul(self, x, y):
+        return torch.sum(x * y, dim=1, keepdims=True)
+
     def forward(self, enrollment_mels, test_mel):
         enrollment_embeddings = []
         for mel in enrollment_mels:
@@ -57,12 +60,13 @@ class SpeakerVerifier(nn.Module):
             axis=2,
         )
         t_emb = self._compute_audio_embedding(test_mel)
+        
 
         s = (self.half_similarity_matrix + self.half_similarity_matrix.T) / 2.0
 
-        score = self.weight * torch.matmul(e_emb, t_emb.T) - \
-            torch.matmul(e_emb, torch.matmul(s, e_emb.T)) - \
-            torch.matmul(t_emb, torch.matmul(s, t_emb.T)) + self.bias
+        score = self.weight * self._batch_dot_mul(e_emb, e_emb) - \
+            self._batch_dot_mul(e_emb, torch.matmul(t_emb, s)) - \
+            self._batch_dot_mul(t_emb, t_emb) + self.bias
 
         return score
 
