@@ -37,6 +37,8 @@ def train(run_id, train_dataset, dev_dataset, num_epochs, models_dir,
     optimizer = torch.optim.Adam(model.parameters(), lr=sv_hp.learning_rate)
 
     # Configure the path for the models.
+    if not models_dir.exists():
+        models_dir.mkdir(exist_ok=True)
     state_fpath = models_dir.joinpath(run_id + ".pt")
 
     model.train()
@@ -55,6 +57,8 @@ def train(run_id, train_dataset, dev_dataset, num_epochs, models_dir,
         if print_every != 0 and step % print_every == 0:
             print(f"Loss at step {step}: {loss}")
             print(evaluate(model, dev_dl))       
+            print()
+            model.train()
 
         if save_every != 0 and step % save_every == 0:
             print(f"Saving the model (step {step}):")
