@@ -39,7 +39,6 @@ def train(run_id, train_dataset, dev_dataset, num_epochs, models_dir,
     # Configure the path for the models.
     if not models_dir.exists():
         models_dir.mkdir(exist_ok=True)
-    state_fpath = models_dir.joinpath(run_id + ".pt")
 
     model.train()
     for step in range(num_epochs):
@@ -61,6 +60,7 @@ def train(run_id, train_dataset, dev_dataset, num_epochs, models_dir,
             model.train()
 
         if save_every != 0 and step % save_every == 0:
+            state_fpath = models_dir.joinpath(f"{run_id}_{step}.pt")
             print(f"Saving the model (step {step}):")
             torch.save({
                 "step": step + 1,
