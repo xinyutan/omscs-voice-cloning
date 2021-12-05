@@ -13,3 +13,4 @@ class SpeakerVerifierHyperparameters:
     gradient_clipping_max_value = 5
 
     batch_size = 64
+    examples_evaluate = 1000

@@ -69,3 +69,7 @@ class SpeakerVerifier(nn.Module):
             self._batch_dot_mul(t_emb, t_emb) + self.bias
 
         return score
+
+    def predict_prob(self, enrollment_mels, test_mel):
+        score = self.forward(enrollment_mels, test_mel)
+        return torch.sigmoid(score)

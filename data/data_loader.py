@@ -31,7 +31,6 @@ class DataLoader:
                 success = True
             except:
                 fail_times += 1
-        print(fail_times)
         if not success:
             raise RuntimeError("dataset seems to be empty.")
         return X, y
