@@ -24,7 +24,10 @@ python main.py \
 ## Training Data
 
 There are two raw data sources for the speech related tasks: 1. LibriSpeech, 2. VCTK.
-We 
+
+1. `wget https://us.openslr.org/resources/12/train-clean-360.tar.gz` to get the raw data.
+2. Run `python3 encoder_preprocess.py '{dataset_root}'` from [Real-Time-Voice-Cloning](https://github.com/CorentinJ/Real-Time-Voice-Cloning). `{dataset_root}` is the root directory of the downloaded dataset. This step is to clean and transform the raw audio data into mel-spectogram (2D data).
+3. Step 2 will put the preprocessd data into `dataset_root/SV2TTS/encoder/`, which should be the `train_dataset_path` in above command.
 
 
 ## Speaker verification model
@@ -35,7 +38,7 @@ We
 
 LibriSpeech. 
 
-Need to convert the audios to its Mel-specturam. 
+Need to convert the audios to its Mel-spectogram. 
 
 
 
