@@ -10,9 +10,21 @@ There are two main models:
 1. Speaker verification model to determine whether a test audio comes from the same speaker as the enrollment audios.
 2. Speaker encoder to quickly learn the speaker embedding from the few audios.
 
+## Train the Model
+
+```
+python main.py \
+--train_dataset_path '/Users/xinyutan/Documents/SV2TTS/encoder/'\
+--dev_dataset_path '/Users/xinyutan/Documents/SV2TTS/encoder/' \
+--saved_models_dir './saved_models' \
+--num_epochs 1000 --save_every 100 --print_every 100
+```
+
+
 ## Training Data
 
-There are two data sources for the speech related tasks: 1. LibriSpeech, 2. VCTK.
+There are two raw data sources for the speech related tasks: 1. LibriSpeech, 2. VCTK.
+We 
 
 
 ## Speaker verification model

@@ -4,7 +4,7 @@ import data.data_params as dp
 
 
 class DataLoader:
-    def __init__(self, dataset, batch_size, trial_num=5):
+    def __init__(self, dataset, batch_size, trial_num=100):
         self.dataset = dataset
         self.batch_size = batch_size
         self.trial_num = trial_num

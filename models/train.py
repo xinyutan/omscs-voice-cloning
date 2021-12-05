@@ -3,6 +3,7 @@ import torch.nn as nn
 from models.hyperparameters import SpeakerVerifierHyperparameters as sv_hp
 from models.speaker_verifier import SpeakerVerifier
 from data.data_loader import DataLoader
+from data.dataset import SpeakerVerifierDataset
 from sklearn.metrics import accuracy_score, roc_auc_score
 import numpy as np
 
@@ -26,9 +27,12 @@ def evaluate(model, dev_dataloader):
         accuracy_score(prob_array>0.5, label_array)
 
 
-def train(run_id, train_dataset, dev_dataset, num_epochs, models_dir,
-          save_every=0, print_every=0):
+def train(run_id, train_dataset_path, dev_dataset_path, num_epochs, saved_models_dir,
+          save_every, print_every):
+    train_dataset = SpeakerVerifierDataset(train_dataset_path)
+    dev_dataset = SpeakerVerifierDataset(dev_dataset_path)
     # Setting up the training objects.
+    
     train_dl = DataLoader(train_dataset, sv_hp.batch_size)
     dev_dl = DataLoader(dev_dataset, sv_hp.batch_size)
 
@@ -37,8 +41,8 @@ def train(run_id, train_dataset, dev_dataset, num_epochs, models_dir,
     optimizer = torch.optim.Adam(model.parameters(), lr=sv_hp.learning_rate)
 
     # Configure the path for the models.
-    if not models_dir.exists():
-        models_dir.mkdir(exist_ok=True)
+    if not saved_models_dir.exists():
+        saved_models_dir.mkdir(exist_ok=True)
 
     model.train()
     for step in range(num_epochs):
@@ -60,7 +64,7 @@ def train(run_id, train_dataset, dev_dataset, num_epochs, models_dir,
             model.train()
 
         if save_every != 0 and step % save_every == 0:
-            state_fpath = models_dir.joinpath(f"{run_id}_{step}.pt")
+            state_fpath = saved_models_dir.joinpath(f"{run_id}_{step}.pt")
             print(f"Saving the model (step {step}):")
             torch.save({
                 "step": step + 1,
