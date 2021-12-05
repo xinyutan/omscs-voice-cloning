@@ -11,3 +11,5 @@ class SpeakerVerifierHyperparameters:
     learning_rate = 1e-3
     max_gradient_norm = 100
     gradient_clipping_max_value = 5
+
+    batch_size = 64

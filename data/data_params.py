@@ -11,7 +11,6 @@ partials_n_frames = 160     # 1600 ms
 # Number of spectrogram frames at inference
 inference_n_frames = 80     #  800 ms
 
-
 ## Voice Activation Detection
 # Window size of the VAD. Must be either 10, 20 or 30 milliseconds.
 # This sets the granularity of the VAD. Should not need to be changed.
@@ -25,3 +24,8 @@ vad_max_silence_length = 6
 
 ## Audio volume normalization
 audio_norm_target_dBFS = -30
+
+# Number of enrollment audios.
+num_enrollment_audios = 4
+# label = 1 probability.
+positive_probability = 0.5

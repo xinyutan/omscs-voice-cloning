@@ -4,6 +4,7 @@ import torch
 from models.hyperparameters import SpeakerVerifierHyperparameters as hp
 import data.data_params as dp
 
+
 class SpeakerVerifier(nn.Module):
     def __init__(self):
         super(SpeakerVerifier, self).__init__()
@@ -56,11 +57,10 @@ class SpeakerVerifier(nn.Module):
         for mel in enrollment_mels:
             enrollment_embeddings.append(self._compute_audio_embedding(mel))
         e_emb = torch.mean(
-            torch.stack(enrollment_embeddings, axis=2), 
+            torch.stack(enrollment_embeddings, axis=2),
             axis=2,
         )
         t_emb = self._compute_audio_embedding(test_mel)
-        
 
         s = (self.half_similarity_matrix + self.half_similarity_matrix.T) / 2.0
 
@@ -69,9 +69,3 @@ class SpeakerVerifier(nn.Module):
             self._batch_dot_mul(t_emb, t_emb) + self.bias
 
         return score
-
-        
-        
-        
-
-        
