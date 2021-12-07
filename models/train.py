@@ -59,13 +59,12 @@ def train(run_id, train_dataset_path, dev_dataset_path, num_epochs, saved_models
 
         if print_every != 0 and step % print_every == 0:
             print(f"Loss at step {step}: {loss}")
-            print(evaluate(model, dev_dl))       
-            print()
+            print(evaluate(model, dev_dl))
             model.train()
 
         if save_every != 0 and step % save_every == 0:
             state_fpath = saved_models_dir.joinpath(f"{run_id}_{step}.pt")
-            print(f"Saving the model (step {step}):")
+            print(f"Saving the model (step {step}).")
             torch.save({
                 "step": step + 1,
                 "model_state": model.state_dict(),

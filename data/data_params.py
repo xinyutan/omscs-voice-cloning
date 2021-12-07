@@ -7,7 +7,7 @@ mel_n_channels = 40
 ## Audio
 sampling_rate = 16000
 # Number of spectrogram frames in a partial utterance
-partials_n_frames = 200     # 1600 ms
+partials_n_frames = 160     # 1600 ms
 # Number of spectrogram frames at inference
 inference_n_frames = 80     #  800 ms
 
@@ -26,6 +26,6 @@ vad_max_silence_length = 6
 audio_norm_target_dBFS = -30
 
 # Number of enrollment audios.
-num_enrollment_audios = 4
+num_enrollment_audios = 6
 # label = 1 probability.
 positive_probability = 0.5
