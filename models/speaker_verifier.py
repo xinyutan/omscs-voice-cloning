@@ -31,7 +31,7 @@ class SpeakerVerifier(nn.Module):
         )
         self.weight = nn.Parameter(torch.tensor([10.]))
         self.bias = nn.Parameter(torch.tensor([-5.]))
-        self.half_similarity_matrix = nn.empty(
+        self.half_similarity_matrix = torch.empty(
             hp.fully_connected_size, hp.fully_connected_size, requires_grad=True
         )
         nn.init.xavier_normal_(self.half_similarity_matrix)
