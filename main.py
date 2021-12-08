@@ -1,7 +1,6 @@
 from pathlib import Path
 import argparse
 from models.train import train
-from data.dataset import SpeakerVerifierDataset
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -65,9 +65,9 @@ class SpeakerVerifier(nn.Module):
 
         s = (self.half_similarity_matrix + self.half_similarity_matrix.T) / 2.0
 
-        score = self.weight * self._batch_dot_mul(e_emb, e_emb) - \
-            self._batch_dot_mul(e_emb, torch.matmul(t_emb, s)) - \
-            self._batch_dot_mul(t_emb, t_emb) + self.bias
+        score = self.weight * self._batch_dot_mul(e_emb, t_emb) - \
+            self._batch_dot_mul(e_emb, torch.matmul(e_emb, s)) - \
+            self._batch_dot_mul(t_emb, torch.matmul(t_emb, s)) + self.bias
 
         return score
 
