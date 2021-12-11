@@ -28,7 +28,7 @@ def evaluate(model, dev_dataloader):
 
 
 def train(run_id, train_dataset_path, dev_dataset_path, num_epochs, saved_models_dir,
-          save_every, print_every):
+          save_every, print_every, monitor_gradient=False):
     train_dataset = SpeakerVerifierDataset(train_dataset_path)
     dev_dataset = SpeakerVerifierDataset(dev_dataset_path)
     # Setting up the training objects.
@@ -53,6 +53,13 @@ def train(run_id, train_dataset_path, dev_dataset_path, num_epochs, saved_models
         loss = criterion(scores, y.reshape(-1, 1))
 
         loss.backward()
+        if monitor_gradient:
+            print(f"gradiant at step {step}")
+            print(f"conv layer: {torch.norm(model.conv.weight.grad) / sv_hp.batch_size}")
+            print(f"gru layer hh_10: {torch.norm(model.gru.weight_hh_l0.grad)}")
+            print(f"gru layer ih_10: {torch.norm(model.gru.weight_ih_l0.grad)}")
+            print(f"half symmetry matrix: {torch.norm(model.half_similarity_matrix.grad)}")
+            print("======================\n")
         nn.utils.clip_grad_norm_(
             model.parameters(), sv_hp.gradient_clipping_max_value)
         optimizer.step()

@@ -17,6 +17,7 @@ if __name__ == '__main__':
         help="Save the checkpoint every this many steps.")
     parser.add_argument('--print_every', type=int, default=2000, \
         help="Print the evaluation on the dev dataset every this many steps.")
+    parser.add_argument('--monitor_gradient', type=bool, default=False)
 
     opts = parser.parse_args()
     opts=vars(opts)
