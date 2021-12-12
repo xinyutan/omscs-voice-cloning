@@ -11,15 +11,16 @@ class DataLoader:
 
     def _create_batch(self):
         labels = []
-        audios = [[] for _ in range(dp.num_enrollment_audios)]
+        audios = [[] for _ in range(dp.num_enrollment_audios + 1)]
         for i in range(self.batch_size):
             x, y = self.dataset[i]
             labels.append(y)
-            for j in range(dp.num_enrollment_audios):
+            for j in range(dp.num_enrollment_audios + 1):
                 audios[j].append(x[j])
 
         return [torch.stack(x, axis=0).unsqueeze(axis=1) for x in audios], \
             torch.tensor(labels, dtype=torch.float)
+        
 
     def __next__(self):
         success = False

@@ -13,6 +13,8 @@ class SpeakerVerifier(nn.Module):
             hp.conv2d_out_channels,
             hp.conv2d_kernel_size,
             hp.conv2d_strides)
+        torch.nn.init.xavier_uniform_(self.conv.weight)
+
         self.conv_bn = nn.BatchNorm2d(hp.conv2d_out_channels)
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(hp.dropout_probability)
