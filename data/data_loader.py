@@ -4,10 +4,11 @@ import data.data_params as dp
 
 
 class DataLoader:
-    def __init__(self, dataset, batch_size, trial_num=100):
+    def __init__(self, dataset, batch_size, normalization=False, trial_num=100):
         self.dataset = dataset
         self.batch_size = batch_size
         self.trial_num = trial_num
+        self.normalization = normalization
 
     def _create_batch(self):
         labels = []
@@ -18,8 +19,15 @@ class DataLoader:
             for j in range(dp.num_enrollment_audios + 1):
                 audios[j].append(x[j])
 
-        return [torch.stack(x, axis=0).unsqueeze(axis=1) for x in audios], \
+        X, y = [torch.stack(x, axis=0).unsqueeze(axis=1) for x in audios], \
             torch.tensor(labels, dtype=torch.float)
+        
+        if not self.normalization:
+            return X, y
+
+        all_data = torch.cat(X, dim=1)
+        mean, std = all_data.mean(), all_data.std()
+        return [(x - mean) / std for x in X], y
         
 
     def __next__(self):

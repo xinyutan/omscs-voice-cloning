@@ -8,7 +8,7 @@ class SpeakerVerifierHyperparameters:
     fully_connected_size = 128
     dropout_probability = 0.9
 
-    learning_rate = 1e-3
+    learning_rate = 1e-4
     max_gradient_norm = 100
     gradient_clipping_max_value = 5
 

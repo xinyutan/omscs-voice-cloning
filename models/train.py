@@ -33,8 +33,8 @@ def train(run_id, train_dataset_path, dev_dataset_path, num_epochs, saved_models
     dev_dataset = SpeakerVerifierDataset(dev_dataset_path)
     # Setting up the training objects.
     
-    train_dl = DataLoader(train_dataset, sv_hp.batch_size)
-    dev_dl = DataLoader(dev_dataset, sv_hp.batch_size)
+    train_dl = DataLoader(train_dataset, sv_hp.batch_size, True)
+    dev_dl = DataLoader(dev_dataset, sv_hp.batch_size, True)
 
     model = SpeakerVerifier()
     criterion = nn.BCEWithLogitsLoss()
