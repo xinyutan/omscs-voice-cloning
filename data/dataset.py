@@ -80,7 +80,7 @@ class SpeakerVerifierDataset(Dataset):
         e_utterances = self.speakers[eid].random_partial(
             dp.num_enrollment_audios, dp.partials_n_frames)
 
-        t_utterances = self.speakers[eid].random_partial(
+        t_utterances = self.speakers[tid].random_partial(
             1, dp.partials_n_frames)
 
         return [torch.from_numpy(u) for _, u, _ in e_utterances] + \

@@ -6,9 +6,9 @@ class SpeakerVerifierHyperparameters:
 
     recurrent_hidden_size = 128
     fully_connected_size = 128
-    dropout_probability = 0.9
+    dropout_probability = 0.2
 
-    learning_rate = 1e-4
+    learning_rate = 1e-3
     max_gradient_norm = 100
     gradient_clipping_max_value = 5
 
